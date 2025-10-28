@@ -1,18 +1,21 @@
-name: Deploy Frontend to GitHub Pages
+name: Deploy Vite App to GitHub Pages
 
 on:
   push:
     branches: [ main ]
 
+permissions:
+  contents: write   # <-- this allows the action to push to gh-pages
+
 jobs:
-  build-deploy:
+  build-and-deploy:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
-      - name: Setup Node
-        uses: actions/setup-node@v3
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
         with:
           node-version: 20
 
@@ -27,4 +30,3 @@ jobs:
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           publish_dir: ./dist
-
